@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The El — Coffee Shop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,600&family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body { 
+      font-family: 'Poppins', sans-serif; 
+      background: linear-gradient(180deg, #0d0d0d 0%, #1a1a1a 100%); 
+      color: #f5f5f5; 
+      overflow-x: hidden; 
+      scroll-behavior: smooth;
+    }
+
+    header { 
+      text-align: center; 
+      padding: 4rem 1rem 2rem; 
+      position: relative; 
+    }
+    header h1 { 
+      font-family: 'Great Vibes', cursive; 
+      font-size: 4.5rem; 
+      color: #fff;  
+      display: inline-flex; 
+      flex-direction: column;
+      align-items: center;
+      letter-spacing: 2px; 
+      position: relative; 
+      animation: fadeIn 1.2s ease both; 
+    }
+    header h1 img {
+      height: 100px;
+      width: auto;
+      margin-bottom: 0.5rem;
+    }
+    header h1::first-letter { color: #D5657B; }
+
+    /* Instagram button top-right */
+    .btn-insta-top {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid #D5657B;
+      border-radius: 25px;
+      color: #D5657B;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+      z-index: 1001;
+    }
+    .btn-insta-top:hover { background: #D5657B; color: #0d0d0d; }
+
+    /* Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(13,13,13,0.95);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid rgba(213,101,123,0.15);
+    }
+    nav ul {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      list-style: none;
+      padding: 0.5rem 0.5rem;
+      gap: 0.5rem;
+      max-width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    nav ul::-webkit-scrollbar { display: none; }
+    nav a {
+      color: #D5657B;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 0.3rem 0.5rem;
+      white-space: nowrap;
+      transition: color 0.3s ease, transform 0.2s ease;
+      flex-shrink: 0;
+    }
+    nav a:hover { 
+      color: #fff; 
+      transform: translateY(-2px);
+    }
+
+    .menu { max-width: 1000px; margin: 2rem auto; padding: 1rem; }
+    .menu-title { 
+      text-align: center; 
+      font-family: 'Cormorant Garamond', serif; 
+      font-size: 2.5rem; 
+      color: #D5657B; 
+      margin-bottom: 2rem; 
+      text-shadow: 0 0 10px rgba(213,101,123,0.25); 
+      animation: fadeIn 1.2s ease both; 
+    }
+    
+    .menu-section { 
+      margin-bottom: 2.5rem; 
+      opacity:0; 
+      transform:translateY(20px); 
+      transition: all 0.6s ease; 
+      background: rgba(255,255,255,0.02); 
+      border: 1px solid rgba(213,101,123,0.1); 
+      border-radius: 12px; 
+      padding: 1.5rem; 
+      backdrop-filter: blur(6px); 
+    }
+    .menu-section.show {opacity:1; transform:translateY(0);}
+    .menu-section h2 { 
+      font-family: 'Cormorant Garamond', serif; 
+      font-size: 2rem; 
+      color: #D5657B; 
+      border-bottom: 1px solid rgba(213,101,123,0.15); 
+      padding-bottom: 0.5rem; 
+      margin-bottom: 1rem; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+    }
+    .menu-section h2 span { 
+      font-size: 1rem; 
+      color: #D5657B; 
+      font-weight: normal; 
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 1rem;
+      flex-wrap: wrap;
+      transition: transform 0.2s ease;
+    }
+    .menu-item:hover { transform: translateX(4px); }
+    .menu-item span:first-child { flex: 1 1 auto; word-break: break-word; }
+    .menu-item span:last-child {
+      flex-shrink: 0;
+      color: #D5657B; 
+      font-weight: bold;
+      margin-left: 1rem;
+      white-space: nowrap;
+    }
+
+    footer { 
+      text-align: center; 
+      padding: 1.5rem 1rem; 
+      margin-top: 2rem; 
+      border-top: 1px solid #222; 
+      color: #aaa; 
+      font-size: 0.9rem;
+    }
+
+    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+
+    @media(max-width:600px){
+      nav ul { gap: 0.3rem; padding:0.3rem; }
+      nav a { font-size:0.85rem; padding:0.25rem 0.5rem; }
+      header h1 { font-size:3.5rem; }
+      header h1 img { height: 70px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>
+      <img src="cup-logo.png" alt="The El Logo">
+      The El
+    </h1>
+    <a href="https://instagram.com/elbyleen" target="_blank" class="btn-insta-top">Instagram</a>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#hot">Hot Drinks</a></li>
+      <li><a href="#iced">Iced Drinks</a></li>
+      <li><a href="#mojitos">Mojitos</a></li>
+      <li><a href="#frappes">Frappes</a></li>
+      <li><a href="#milkshakes">Milkshakes</a></li>
+      <li><a href="#chai">Chai & Matcha</a></li>
+      <li><a href="#smoothies">Smoothies</a></li>
+      <li><a href="#refreshments">Refreshments</a></li>
+      <li><a href="#yoghurt">Yoghurt Base</a></li>
+      <li><a href="#favorites">Leen's Favorites</a></li>
+      <li><a href="#addons">Add-ons</a></li>
+    </ul>
+  </nav>
+
+  <main class="menu">
+    <h2 class="menu-title">Our Menu</h2>
+
+    <!-- Hot Drinks -->
+    <div class="menu-section" id="hot">
+      <h2>Hot Drinks <span>JD</span></h2>
+      <div class="menu-item"><span>Espresso</span><span>2.00</span></div>
+      <div class="menu-item"><span>Americano</span><span>2.50</span></div>
+      <div class="menu-item"><span>Double Turkish</span><span>2.25</span></div>
+      <div class="menu-item"><span>Cortado</span><span>2.15</span></div>
+      <div class="menu-item"><span>Flat White</span><span>2.25</span></div>
+      <div class="menu-item"><span>Cappuccino</span><span>3.10</span></div>
+      <div class="menu-item"><span>Latte</span><span>3.10</span></div>
+      <div class="menu-item"><span>Spanish Latte</span><span>3.50</span></div>
+      <div class="menu-item"><span>Salted Caramel</span><span>3.50</span></div>
+      <div class="menu-item"><span>Mocha</span><span>3.50</span></div>
+      <div class="menu-item"><span>White Mocha</span><span>3.50</span></div>
+      <div class="menu-item"><span>Pistachio Latte</span><span>3.50</span></div>
+      <div class="menu-item"><span>Caramel Macchiato</span><span>3.50</span></div>
+      <div class="menu-item"><span>Hot Chocolate</span><span>3.25</span></div>
+      <div class="menu-item"><span>White Chocolate</span><span>3.25</span></div>
+    </div>
+
+    <!-- Iced Drinks -->
+    <div class="menu-section" id="iced">
+      <h2>Iced Drinks <span>JD</span></h2>
+      <div class="menu-item"><span>Cold Brew</span><span>3.65</span></div>
+      <div class="menu-item"><span>V60</span><span>2.50 / 2.75</span></div>
+      <div class="menu-item"><span>Americano</span><span>3.00 / 3.50</span></div>
+      <div class="menu-item"><span>Latte</span><span>3.25 / 3.75</span></div>
+      <div class="menu-item"><span>Spanish Latte</span><span>3.50 / 3.75</span></div>
+      <div class="menu-item"><span>Mocha</span><span>3.50 / 3.75</span></div>
+      <div class="menu-item"><span>White Mocha</span><span>3.50 / 3.75</span></div>
+      <div class="menu-item"><span>Salted Caramel</span><span>3.50 / 3.75</span></div>
+      <div class="menu-item"><span>Caramel Macchiato</span><span>3.50 / 3.75</span></div>
+    </div>
+
+    <!-- Mojitos -->
+    <div class="menu-section" id="mojitos">
+      <h2>Mojitos <span>JD</span></h2>
+      <div class="menu-item"><span>Energy Mojito</span><span>3.50</span></div>
+      <div class="menu-item"><span>Soda Mojito</span><span>2.85</span></div>
+    </div>
+
+    <!-- Frappes -->
+    <div class="menu-section" id="frappes">
+      <h2>Frappes <span>JD</span></h2>
+      <div class="menu-item"><span>Caramel Frappe</span><span>3.85 / 4.00</span></div>
+      <div class="menu-item"><span>Nutella Frappe</span><span>3.85 / 4.00</span></div>
+      <div class="menu-item"><span>Mocha Frappe</span><span>3.85 / 4.00</span></div>
+      <div class="menu-item"><span>Salted Caramel Frappe</span><span>3.85 / 4.00</span></div>
+      <div class="menu-item"><span>Espresso Frappe</span><span>3.75 / 4.00</span></div>
+    </div>
+
+    <!-- Milkshakes -->
+    <div class="menu-section" id="milkshakes">
+      <h2>Milkshakes <span>JD</span></h2>
+      <div class="menu-item"><span>Fruit Milkshake</span><span>3.75 / 4.00</span></div>
+      <div class="menu-item"><span>Nutella Milkshake</span><span>3.75 / 4.00</span></div>
+      <div class="menu-item"><span>Caramel Milkshake</span><span>3.75 / 4.00</span></div>
+      <div class="menu-item"><span>Vanilla Milkshake</span><span>3.75 / 4.00</span></div>
+      <div class="menu-item"><span>Salted Caramel Milkshake</span><span>3.75 / 4.00</span></div>
+    </div>
+
+    <!-- Chai & Matcha -->
+    <div class="menu-section" id="chai">
+      <h2>Chai & Matcha <span>JD</span></h2>
+      <div class="menu-item"><span>Black Tea</span><span>2.25</span></div>
+      <div class="menu-item"><span>Matcha</span><span>3.75 / 4.00</span></div>
+      <div class="menu-item"><span>Chai Spicy Latte</span><span>3.50</span></div>
+    </div>
+
+    <!-- Smoothies -->
+    <div class="menu-section" id="smoothies">
+      <h2>Smoothies <span>JD</span></h2>
+      <div class="menu-item"><span>The El Smoothie</span><span>4.00 / 4.25</span></div>
+      <div class="menu-item"><span>Passion Fruit Smoothie</span><span>3.75 / 4.00</span></div>
+      <div class="menu-item"><span>Mango Smoothie</span><span>3.75 / 4.00</span></div>
+      <div class="menu-item"><span>Peach Smoothie</span><span>3.75 / 4.00</span></div>
+      <div class="menu-item"><span>Mix Berries Smoothie</span><span>3.75 / 4.00</span></div>
+      <div class="menu-item"><span>Yellow Smoothie</span><span>3.75 / 4.00</span></div>
+    </div>
+
+    <!-- Refreshments -->
+    <div class="menu-section" id="refreshments">
+      <h2>Refreshments <span>JD</span></h2>
+      <div class="menu-item"><span>Redbull</span><span>2.50</span></div>
+      <div class="menu-item"><span>Water</span><span>0.75</span></div>
+      <div class="menu-item"><span>Soda</span><span>1.50</span></div>
+    </div>
+
+    <!-- Yoghurt Base -->
+    <div class="menu-section" id="yoghurt">
+      <h2>Yoghurt Base <span>JD</span></h2>
+      <div class="menu-item"><span>Strawberry Yogo</span><span>4.25 / 4.50</span></div>
+      <div class="menu-item"><span>Passion Fruit Yogo</span><span>4.25 / 4.50</span></div>
+      <div class="menu-item"><span>Blueberry Yogo</span><span>4.25 / 4.50</span></div>
+      <div class="menu-item"><span>Peach Yogo</span><span>4.25 / 4.50</span></div>
+      <div class="menu-item"><span>Mixed Berries Yogo</span><span>4.25 / 4.50</span></div>
+      <div class="menu-item"><span>Yellow Yogo</span><span>4.25 / 4.50</span></div>
+      <div class="menu-item"><span>Vanilla Yogo</span><span>4.25 / 4.50</span></div>
+    </div>
+
+    <!-- Leen's Favorites -->
+    <div class="menu-section" id="favorites">
+      <h2>Leen's Favorites <span>JD</span></h2>
+      <div class="menu-item"><span>Brownie Latte</span><span>3.75 / 4.00</span></div>
+      <div class="menu-item"><span>Ruby Latte</span><span>3.75 / 4.00</span></div>
+      <div class="menu-item"><span>Gold Mocha</span><span>3.75 / 4.00</span></div>
+      <div class="menu-item"><span>Coze Latte</span><span>4.25 / 4.50</span></div>
+      <div class="menu-item"><span>Toffie Crunch Latte</span><span>3.75 / 4.00</span></div>
+      <div class="menu-item"><span>Strawberry Matcha</span><span>3.75 / 4.00</span></div>
+    </div>
+
+    <!-- Add-ons -->
+    <div class="menu-section" id="addons">
+      <h2>Add-ons <span>JD</span></h2>
+      <div class="menu-item"><span>Extra Shot</span><span>0.75</span></div>
+      <div class="menu-item"><span>Oat Milk</span><span>0.75</span></div>
+      <div class="menu-item"><span>Ice Cream Scoop</span><span>0.75</span></div>
+    </div>
+
+  </main>
+
+  <footer>
+    © 2025 The El Coffee Shop. All rights reserved.
+  </footer>
+
+  <script>
+    const sections = document.querySelectorAll('.menu-section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) entry.target.classList.add('show');
+      });
+    }, { threshold: 0.1 });
+    sections.forEach(section => observer.observe(section));
+  </script>
+</body>
+</html>
